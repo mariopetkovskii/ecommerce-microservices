@@ -1,0 +1,65 @@
+#server:
+#    port: 8082
+#
+#spring:
+#    datasource:
+#        url: ${DB_URL:jdbc:postgresql://localhost:5433/users-db}
+#        driver-class-name: org.postgresql.Driver
+#        username: ${DB_USER:postgres}
+#        password: ${DB_PASS:postgres}
+#    jpa:
+#        properties:
+#          hibernate:
+#            dialect: org.hibernate.dialect.PostgreSQLDialect
+#            jdbc:
+#              lob:
+#                non_contextual_creation: true
+#            ddl-auto: update
+#            naming:
+#                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+#        show-sql: true
+#
+#    mvc:
+#        pathmatch:
+#            matching-strategy: ant_path_matcher
+#
+#    application:
+#        name: user-service
+
+server:
+    port: 8082
+
+spring:
+    datasource:
+        url: ${DB_URL:jdbc:postgresql://localhost:5433/users-db}
+        driver-class-name: org.postgresql.Driver
+        username: ${DB_USER:postgres}
+        password: ${DB_PASS:postgres}
+        hikari:
+            connection-timeout: 20000
+            maximum-pool-size: 5
+    jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                jdbc:
+                    lob:
+                        non_contextual_creation: true
+
+        hibernate:
+            ddl-auto: update
+            naming:
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+
+        show-sql: true
+
+        open-in-view: false
+
+    application:
+        name: user-service
+
+
+rsa:
+    public-key: classpath:certs/public.pem
+    private-key: classpath:certs/private.pem
+
