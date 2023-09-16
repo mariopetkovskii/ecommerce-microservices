@@ -1,6 +1,7 @@
 package petkovskimariobachelor.userservice.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import petkovskimariobachelor.userservice.dtos.UserRequestDto;
@@ -10,6 +11,7 @@ import petkovskimariobachelor.userservice.service.interfaces.AuthService;
 import petkovskimariobachelor.userservice.service.interfaces.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,5 +36,10 @@ public class UserController {
 
     private List<UserResponseDto> findAll(){
         return this.userService.findAll();
+    }
+
+    @PostMapping("/user-id")
+    private ResponseEntity<Map<String, String>> getUserId(){
+        return this.authService.getUserId();
     }
 }

@@ -11,5 +11,6 @@
     <module>api-gateway</module>
     <module>user-service</module>
     <module>product-service</module>
+    <module>shopping-cart-service</module>
   </modules>
 </project>

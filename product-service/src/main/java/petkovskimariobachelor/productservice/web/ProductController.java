@@ -2,8 +2,8 @@ package petkovskimariobachelor.productservice.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
 import petkovskimariobachelor.productservice.request.ProductRequestDto;
-import petkovskimariobachelor.productservice.response.ProductResponseDto;
 import petkovskimariobachelor.productservice.service.interfaces.ProductService;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    private List<ProductResponseDto> productRecordList(){
+    private List<ProductSharedDto> productRecordList(){
         return this.productService.findAll();
     }
 
@@ -25,7 +25,7 @@ public class ProductController {
     }
 
     @PostMapping("/get-product")
-    private ProductResponseDto getProduct(@RequestBody ProductRequestDto productRequestDto){
+    private ProductSharedDto getProduct(@RequestBody ProductRequestDto productRequestDto){
         return this.productService.getProduct(productRequestDto);
     }
 }
