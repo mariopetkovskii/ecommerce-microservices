@@ -1,0 +1,14 @@
+FROM maven:3.8-openjdk-17-slim as builder
+
+COPY ../discovery-service/src /home/discovery-service/src
+COPY ../discovery-service/pom.xml /home/discovery-service
+RUN mvn -f /home/discovery-service/pom.xml clean install -Dmaven.test.skip=true
+
+
+FROM openjdk:17-jdk-slim
+
+COPY --from=builder /home/discovery-service/target/*.jar discovery-service.jar
+
+ENTRYPOINT ["java", "-jar", "/discovery-service.jar"]
+
+EXPOSE 8761

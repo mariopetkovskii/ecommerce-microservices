@@ -1,37 +1,9 @@
-#server:
-#    port: 8082
-#
-#spring:
-#    datasource:
-#        url: ${DB_URL:jdbc:postgresql://localhost:5433/users-db}
-#        driver-class-name: org.postgresql.Driver
-#        username: ${DB_USER:postgres}
-#        password: ${DB_PASS:postgres}
-#    jpa:
-#        properties:
-#          hibernate:
-#            dialect: org.hibernate.dialect.PostgreSQLDialect
-#            jdbc:
-#              lob:
-#                non_contextual_creation: true
-#            ddl-auto: update
-#            naming:
-#                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
-#        show-sql: true
-#
-#    mvc:
-#        pathmatch:
-#            matching-strategy: ant_path_matcher
-#
-#    application:
-#        name: user-service
-
 server:
     port: 8082
 
 spring:
     datasource:
-        url: ${DB_URL:jdbc:postgresql://localhost:5433/users-db}
+        url: ${DB_URL:jdbc:postgresql://localhost:5431/users-db}
         driver-class-name: org.postgresql.Driver
         username: ${DB_USER:postgres}
         password: ${DB_PASS:postgres}
@@ -57,9 +29,43 @@ spring:
 
     application:
         name: user-service
+    data:
+        redis:
+            host: ${REDIS_URL:localhost}
+            port: 6379
+
+    cache:
+        type: redis
+
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+
+management:
+    tracing:
+        sampling:
+            probability: 1.0
+    zipkin:
+        tracing:
+            endpoint: ${ZIPKIN_URL:http://localhost:9411/api/v2/spans}
+    endpoints:
+        web:
+            exposure:
+                include: prometheus
+
+logging:
+    pattern:
+        level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 
 rsa:
     public-key: classpath:certs/public.pem
     private-key: classpath:certs/private.pem
+
 

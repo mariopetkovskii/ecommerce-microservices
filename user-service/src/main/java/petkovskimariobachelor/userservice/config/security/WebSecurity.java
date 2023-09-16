@@ -1,4 +1,4 @@
-package petkovskimariobachelor.userservice.config;
+package petkovskimariobachelor.userservice.config.security;
 
 import petkovskimariobachelor.userservice.repository.UserRepository;
 import com.nimbusds.jose.jwk.JWK;
@@ -58,7 +58,7 @@ public class WebSecurity {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> corsConfiguration()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/rest/user/register", "/rest/user/login").permitAll()
+                        .requestMatchers("/rest/user/register", "/rest/user/login", "/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 ).oauth2ResourceServer(auth -> auth
                         .jwt(customizer -> customizer.jwtAuthenticationConverter(new JwtAuthenticationConverter(userRepository))))

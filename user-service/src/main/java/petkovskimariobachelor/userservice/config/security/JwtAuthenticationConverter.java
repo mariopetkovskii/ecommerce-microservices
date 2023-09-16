@@ -1,4 +1,4 @@
-package petkovskimariobachelor.userservice.config;
+package petkovskimariobachelor.userservice.config.security;
 
 import petkovskimariobachelor.userservice.entity.User;
 import petkovskimariobachelor.userservice.exceptions.UserNotExistException;

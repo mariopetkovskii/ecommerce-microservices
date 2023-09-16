@@ -4,8 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import petkovskimariobachelor.userservice.dtos.UserRequestDto;
+import petkovskimariobachelor.userservice.entity.User;
+import petkovskimariobachelor.userservice.response.UserResponseDto;
 import petkovskimariobachelor.userservice.service.interfaces.AuthService;
 import petkovskimariobachelor.userservice.service.interfaces.UserService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,5 +29,10 @@ public class UserController {
     @GetMapping("/test")
     private String test(){
         return "test";
+    }
+    @GetMapping("/getAll")
+
+    private List<UserResponseDto> findAll(){
+        return this.userService.findAll();
     }
 }

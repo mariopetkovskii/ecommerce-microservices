@@ -1,0 +1,14 @@
+FROM maven:3.8-openjdk-17-slim as builder
+
+COPY ../api-gateway/src /home/api-gateway/src
+COPY ../api-gateway/pom.xml /home/api-gateway
+RUN mvn -f /home/api-gateway/pom.xml clean install -Dmaven.test.skip=true
+
+
+FROM openjdk:17-jdk-slim
+
+COPY --from=builder /home/api-gateway/target/*.jar api-gateway.jar
+
+ENTRYPOINT ["java", "-jar", "/api-gateway.jar"]
+
+EXPOSE 8090

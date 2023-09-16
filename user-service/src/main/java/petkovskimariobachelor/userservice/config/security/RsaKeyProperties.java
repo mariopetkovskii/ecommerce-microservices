@@ -1,4 +1,4 @@
-package petkovskimariobachelor.userservice.config;
+package petkovskimariobachelor.userservice.config.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

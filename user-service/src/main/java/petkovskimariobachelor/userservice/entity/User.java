@@ -10,8 +10,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import petkovskimariobachelor.commonservice.base.BaseEntity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 @Getter
 @Builder
@@ -19,7 +19,7 @@ import java.time.OffsetDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users_system")
-public class User extends BaseEntity<UserId> {
+public class User extends BaseEntity<UserId> implements Serializable {
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
