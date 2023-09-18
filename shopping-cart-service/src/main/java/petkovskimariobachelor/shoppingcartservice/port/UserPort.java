@@ -5,7 +5,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
 
 import java.util.HashMap;
 import java.util.Map;

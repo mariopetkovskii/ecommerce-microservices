@@ -58,9 +58,11 @@ public class WebSecurity {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> corsConfiguration()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/rest/user/register", "/rest/user/login", "/actuator/**").permitAll()
+                        .requestMatchers("/rest/user/**", "/actuator/**").permitAll()
+                        .requestMatchers("/rest/user/validateToken").permitAll()
                         .anyRequest().authenticated()
-                ).oauth2ResourceServer(auth -> auth
+                )
+                .oauth2ResourceServer(auth -> auth
                         .jwt(customizer -> customizer.jwtAuthenticationConverter(new JwtAuthenticationConverter(userRepository))))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions) -> exceptions

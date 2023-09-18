@@ -2,10 +2,10 @@ package petkovskimariobachelor.userservice.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import petkovskimariobachelor.userservice.dtos.UserRequestDto;
-import petkovskimariobachelor.userservice.entity.User;
 import petkovskimariobachelor.userservice.response.UserResponseDto;
 import petkovskimariobachelor.userservice.service.interfaces.AuthService;
 import petkovskimariobachelor.userservice.service.interfaces.UserService;
@@ -28,7 +28,7 @@ public class UserController {
         String token = this.authService.generateToken(authentication);
         return token;
     }
-    @GetMapping("/test")
+    @GetMapping("/admin/test")
     private String test(){
         return "test";
     }
@@ -41,5 +41,15 @@ public class UserController {
     @PostMapping("/user-id")
     private ResponseEntity<Map<String, String>> getUserId(){
         return this.authService.getUserId();
+    }
+
+    @PostMapping("/validateToken")
+    private Boolean validateToken(@RequestHeader("Authorization") String token){
+        return this.authService.validateToken(token);
+    }
+
+    @PostMapping("/admin/validateToken")
+    private Boolean validateTokenAdmin(@RequestHeader("Authorization") String token){
+        return this.authService.validateAdminToken(token);
     }
 }

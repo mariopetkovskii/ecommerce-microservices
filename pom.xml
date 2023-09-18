@@ -12,5 +12,7 @@
     <module>user-service</module>
     <module>product-service</module>
     <module>shopping-cart-service</module>
+    <module>order-service</module>
+    <module>notification-service</module>
   </modules>
 </project>

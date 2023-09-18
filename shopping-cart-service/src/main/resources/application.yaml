@@ -34,6 +34,11 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  kafka:
+    bootstrap-servers: ${KAFKA_URL:localhost:9092}
+    consumer:
+      group-id: orderGroup,orderEmailGroup
+
 eureka:
   client:
     serviceUrl:

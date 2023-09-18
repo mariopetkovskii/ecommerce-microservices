@@ -6,15 +6,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
+import petkovskimariobachelor.userservice.config.security.WebSecurity;
 import petkovskimariobachelor.userservice.entity.User;
 import petkovskimariobachelor.userservice.exceptions.UserNotExistException;
 import petkovskimariobachelor.userservice.repository.UserRepository;
 import petkovskimariobachelor.userservice.service.interfaces.AuthService;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.security.Security;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImplementation implements AuthService {
+    private final JwtDecoder jwtDecoder;
     private final JwtEncoder encoder;
     private final UserRepository userRepository;
     @Override
@@ -54,5 +57,27 @@ public class AuthServiceImplementation implements AuthService {
         response.put("userId", user.getId().getId());
         response.put("email", email);
         return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public Boolean validateToken(String token) {
+        try{
+            Jwt decodedToken = this.jwtDecoder.decode(token.substring(7));
+            return true;
+        }catch (Exception exception){
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean validateAdminToken(String token) {
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
+            User user = this.userRepository.findByEmail(email);
+            return user.getRole().getAuthority().equals("ROLE_ADMIN");
+        }catch (Exception exception){
+            return false;
+        }
     }
 }

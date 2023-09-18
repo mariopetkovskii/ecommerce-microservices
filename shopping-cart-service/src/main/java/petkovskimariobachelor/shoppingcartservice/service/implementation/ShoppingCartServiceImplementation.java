@@ -7,6 +7,7 @@ import petkovskimariobachelor.commonservice.shared.shoppingcart.ShoppingCartShar
 import petkovskimariobachelor.shoppingcartservice.dto.ShoppingCartItemDto;
 import petkovskimariobachelor.shoppingcartservice.entity.ProductItem;
 import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCart;
+import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCartId;
 import petkovskimariobachelor.shoppingcartservice.mappers.ShoppingCartTotalMapper;
 import petkovskimariobachelor.shoppingcartservice.port.ProductPort;
 import petkovskimariobachelor.shoppingcartservice.port.UserPort;
@@ -47,9 +48,9 @@ public class ShoppingCartServiceImplementation implements ShoppingCartService {
     }
 
     @Override
-    public void deleteShoppingCartItems(String header, String shoppingCartId) {
-        Map<String, String> userDetails = this.userPort.getUserId(header);
-        ShoppingCart shoppingCart = this.shoppingCartRepository.findByUserId(userDetails.get("userId")).orElseThrow(RuntimeException::new);
+    public void deleteShoppingCartItems(String shoppingCartId) {
+        ShoppingCart shoppingCart = this.shoppingCartRepository.findById(ShoppingCartId.of(shoppingCartId))
+                        .orElseThrow();
         shoppingCart.getShoppingCart().clear();
         this.shoppingCartRepository.save(shoppingCart);
     }

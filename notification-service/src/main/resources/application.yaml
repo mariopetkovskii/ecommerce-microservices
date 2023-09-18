@@ -1,0 +1,49 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: notification-service
+
+  mail:
+    host: ${MAILHOG:localhost}
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+  kafka:
+    bootstrap-servers: ${KAFKA_URL:localhost:9092}
+    consumer:
+      group-id: orderGroup,orderEmailGroup
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_URL:http://localhost:9411/api/v2/spans}
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+email:
+  host: ${EMAIL_HOST:localhost}

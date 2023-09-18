@@ -9,7 +9,7 @@ public interface ShoppingCartService {
 
     ShoppingCartSharedDto getShoppingCart(String header);
 
-    void deleteShoppingCartItems(String header, String shoppingCartId);
+    void deleteShoppingCartItems(String shoppingCartId);
 
     void deleteItemFromShoppingCart(String header, ShoppingCartItemDto shoppingCartItemDto);
 }

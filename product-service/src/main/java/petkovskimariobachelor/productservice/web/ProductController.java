@@ -19,7 +19,7 @@ public class ProductController {
         return this.productService.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     private void createProduct(@RequestBody ProductRequestDto productRequestDto){
         this.productService.create(productRequestDto);
     }
