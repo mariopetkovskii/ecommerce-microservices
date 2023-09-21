@@ -3,7 +3,7 @@ package petkovskimariobachelor.shoppingcartservice.port;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductSharedDto;
 
 import java.util.HashMap;
 import java.util.Map;

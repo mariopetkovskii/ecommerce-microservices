@@ -2,7 +2,9 @@ package petkovskimariobachelor.productservice.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
+import petkovskimariobachelor.commonservice.pageresponse.PageResponse;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductSharedDto;
+import petkovskimariobachelor.productservice.request.ProductFilterRequestDto;
 import petkovskimariobachelor.productservice.request.ProductRequestDto;
 import petkovskimariobachelor.productservice.service.interfaces.ProductService;
 
@@ -27,5 +29,9 @@ public class ProductController {
     @PostMapping("/get-product")
     private ProductSharedDto getProduct(@RequestBody ProductRequestDto productRequestDto){
         return this.productService.getProduct(productRequestDto);
+    }
+    @GetMapping("/test")
+    private PageResponse<ProductSharedDto> findAllWithPagination(ProductFilterRequestDto request){
+        return this.productService.findProductWithPaging(request);
     }
 }

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import petkovskimariobachelor.commonservice.kafka.events.OrderEvent;
 import petkovskimariobachelor.commonservice.kafka.events.OrderWithEmailEvent;
-import petkovskimariobachelor.commonservice.shared.shoppingcart.ShoppingCartSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.shoppingcart.ShoppingCartSharedDto;
 import petkovskimariobachelor.orderservice.entity.Order;
 import petkovskimariobachelor.orderservice.infra.OrderEventPublisher;
 import petkovskimariobachelor.orderservice.port.ShoppingCartPort;

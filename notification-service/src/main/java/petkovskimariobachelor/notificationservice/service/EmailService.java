@@ -6,9 +6,8 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import petkovskimariobachelor.commonservice.shared.product.ProductResponseSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductResponseSharedDto;
 
 import java.util.List;
 import java.util.Properties;

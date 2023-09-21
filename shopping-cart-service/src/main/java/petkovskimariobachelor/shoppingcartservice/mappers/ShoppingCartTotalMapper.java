@@ -2,9 +2,9 @@ package petkovskimariobachelor.shoppingcartservice.mappers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import petkovskimariobachelor.commonservice.shared.product.ProductResponseSharedDto;
-import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
-import petkovskimariobachelor.commonservice.shared.shoppingcart.ShoppingCartSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductResponseSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.shoppingcart.ShoppingCartSharedDto;
 import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCart;
 import petkovskimariobachelor.shoppingcartservice.port.ProductPort;
 

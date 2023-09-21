@@ -3,7 +3,7 @@ package petkovskimariobachelor.commonservice.kafka.events;
 import lombok.Getter;
 import petkovskimariobachelor.commonservice.kafka.DomainEvent;
 import petkovskimariobachelor.commonservice.kafka.topics.TopicType;
-import petkovskimariobachelor.commonservice.shared.product.ProductResponseSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductResponseSharedDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package petkovskimariobachelor.commonservice.shared.product;
+package petkovskimariobachelor.commonservice.shareddtos.product;
 
 
 import java.io.Serializable;

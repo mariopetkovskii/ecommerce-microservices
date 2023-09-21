@@ -1,7 +1,6 @@
 package petkovskimariobachelor.shoppingcartservice.service.interfaces;
 
-import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
-import petkovskimariobachelor.commonservice.shared.shoppingcart.ShoppingCartSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.shoppingcart.ShoppingCartSharedDto;
 import petkovskimariobachelor.shoppingcartservice.dto.ShoppingCartItemDto;
 
 public interface ShoppingCartService {

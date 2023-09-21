@@ -1,8 +1,8 @@
 package petkovskimariobachelor.shoppingcartservice.mappers;
 
 import org.springframework.stereotype.Service;
-import petkovskimariobachelor.commonservice.shared.product.ProductResponseSharedDto;
-import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductResponseSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductSharedDto;
 import petkovskimariobachelor.shoppingcartservice.entity.ProductItem;
 
 import java.util.function.BiFunction;

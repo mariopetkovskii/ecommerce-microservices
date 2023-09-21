@@ -1,7 +1,7 @@
 package petkovskimariobachelor.productservice.mappers;
 
 import org.springframework.stereotype.Service;
-import petkovskimariobachelor.commonservice.shared.product.ProductSharedDto;
+import petkovskimariobachelor.commonservice.shareddtos.product.ProductSharedDto;
 import petkovskimariobachelor.productservice.entity.Product;
 
 import java.util.function.Function;
