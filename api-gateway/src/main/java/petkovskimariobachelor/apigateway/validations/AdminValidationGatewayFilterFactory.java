@@ -38,7 +38,7 @@ public class AdminValidationGatewayFilterFactory extends AbstractGatewayFilterFa
                         if(isValid){
                             return chain.filter(exchange);
                         }else {
-                            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                            exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
                             return exchange.getResponse().setComplete();
                         }
                     });

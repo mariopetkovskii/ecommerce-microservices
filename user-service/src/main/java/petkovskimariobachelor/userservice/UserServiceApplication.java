@@ -10,7 +10,6 @@ import petkovskimariobachelor.userservice.config.security.RsaKeyProperties;
 @EnableJpaAuditing
 @EnableConfigurationProperties(RsaKeyProperties.class)
 @SpringBootApplication
-@EnableCaching
 public class UserServiceApplication {
 
     public static void main(String[] args) {

@@ -60,7 +60,6 @@ public class UserServiceImplementation implements UserService {
     public ResponseEntity<Map<String, String>> getUserId(String bearerToken) {
         return null;
     }
-    @Cacheable(value = "userCache")
     @Override
     public List<UserResponseDto> findAll() {
         return this.userRepository.findAll()
