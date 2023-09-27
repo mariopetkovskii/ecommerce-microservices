@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
+import petkovskimariobachelor.commonservice.shareddtos.TokenValidationResponse;
 import petkovskimariobachelor.userservice.config.security.WebSecurity;
 import petkovskimariobachelor.userservice.entity.User;
 import petkovskimariobachelor.userservice.exceptions.UserNotExistException;
@@ -60,12 +61,15 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public Boolean validateToken(String token) {
+    public TokenValidationResponse validateToken(String token) {
         try{
             Jwt decodedToken = this.jwtDecoder.decode(token.substring(7));
-            return true;
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
+            User user = this.userRepository.findByEmail(email);
+            return new TokenValidationResponse(user.getEmail(), user.getId().getId(), true);
         }catch (Exception exception){
-            return false;
+            return new TokenValidationResponse("","", true);
         }
     }
 

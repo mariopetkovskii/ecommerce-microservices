@@ -19,9 +19,9 @@ public class ShoppingCartPort {
         return UriComponentsBuilder.fromUriString(this.server);
     }
 
-    public ShoppingCartSharedDto getShoppingCart(String bearerToken){
+    public ShoppingCartSharedDto getShoppingCart(String userId){
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Authorization", bearerToken);
+        httpHeaders.set("X-id", userId);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>("", httpHeaders);
         ResponseEntity<ShoppingCartSharedDto> response = restTemplate.exchange(this.server + "/rest/shopping-cart/get-shopping-cart", HttpMethod.GET, entity, ShoppingCartSharedDto.class);

@@ -56,6 +56,28 @@ management:
       exposure:
         include: prometheus
 
+resilience4j:
+  circuitbreaker:
+    instances:
+      order:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+  timelimiter:
+    instances:
+      order:
+        timeout-duration: 3s
+  retry:
+    instances:
+      order:
+        max-attempts: 3
+        wait-duration: 5s
+
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

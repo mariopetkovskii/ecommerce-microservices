@@ -4,8 +4,11 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import petkovskimariobachelor.apigateway.validations.AdminValidationGatewayFilterFactory;
 import petkovskimariobachelor.apigateway.validations.TokenValidationGatewayFilterFactory;
+import petkovskimariobachelor.commonservice.shareddtos.TokenValidationResponse;
+import reactor.core.publisher.Mono;
 
 @Configuration
 public class Routes {
