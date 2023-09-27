@@ -10,7 +10,6 @@ import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCart;
 import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCartId;
 import petkovskimariobachelor.shoppingcartservice.mappers.ShoppingCartTotalMapper;
 import petkovskimariobachelor.shoppingcartservice.port.ProductPort;
-import petkovskimariobachelor.shoppingcartservice.port.UserPort;
 import petkovskimariobachelor.shoppingcartservice.repository.ProductItemRepository;
 import petkovskimariobachelor.shoppingcartservice.repository.ShoppingCartRepository;
 import petkovskimariobachelor.shoppingcartservice.service.interfaces.ShoppingCartService;
@@ -22,13 +21,12 @@ import java.util.Map;
 public class ShoppingCartServiceImplementation implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ProductItemRepository productItemRepository;
-    private final UserPort userPort;
     private final ProductPort productPort;
     private final ShoppingCartTotalMapper shoppingCartTotalMapper;
     @Override
-    public void addItemToShoppingCart(String header, ShoppingCartItemDto shoppingCartItemDto) {
-        Map<String, String> userDetails = this.userPort.getUserId(header);
-        ShoppingCart shoppingCart = this.findOrCreateShoppingCart(userDetails.get("userId"));
+    public void addItemToShoppingCart(String userId, ShoppingCartItemDto shoppingCartItemDto) {
+//        Map<String, String> userDetails = this.userPort.getUserId(header);
+        ShoppingCart shoppingCart = this.findOrCreateShoppingCart(userId);
         ProductSharedDto product = this.productPort.getProduct(shoppingCartItemDto.getProductCode());
         ProductItem productItem = new ProductItem(shoppingCartItemDto.getProductCode(), shoppingCartItemDto.getQuantity(), product.price());
         if(shoppingCart.getShoppingCart().contains(productItem)){
@@ -41,9 +39,8 @@ public class ShoppingCartServiceImplementation implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartSharedDto getShoppingCart(String header) {
-        Map<String, String> userDetails = this.userPort.getUserId(header);
-        ShoppingCart shoppingCart = this.shoppingCartRepository.findByUserId(userDetails.get("userId")).orElseThrow(RuntimeException::new);
+    public ShoppingCartSharedDto getShoppingCart(String userId) {
+        ShoppingCart shoppingCart = this.shoppingCartRepository.findByUserId(userId).orElseThrow(RuntimeException::new);
         return this.shoppingCartTotalMapper.apply(shoppingCart);
     }
 
@@ -56,9 +53,8 @@ public class ShoppingCartServiceImplementation implements ShoppingCartService {
     }
 
     @Override
-    public void deleteItemFromShoppingCart(String header, ShoppingCartItemDto shoppingCartItemDto) {
-        Map<String, String> userDetails = this.userPort.getUserId(header);
-        ShoppingCart shoppingCart = this.shoppingCartRepository.findByUserId(userDetails.get("userId")).orElseThrow(RuntimeException::new);
+    public void deleteItemFromShoppingCart(String userId, ShoppingCartItemDto shoppingCartItemDto) {
+        ShoppingCart shoppingCart = this.shoppingCartRepository.findByUserId(userId).orElseThrow(RuntimeException::new);
         ProductItem productItem = this.productItemRepository.findByProductCode(shoppingCartItemDto.getProductCode());
         shoppingCart.getShoppingCart().remove(productItem);
         this.shoppingCartRepository.saveAndFlush(shoppingCart);

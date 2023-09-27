@@ -1,5 +1,6 @@
 package petkovskimariobachelor.apigateway.validations;
 
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -11,10 +12,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class AdminValidationGatewayFilterFactory extends AbstractGatewayFilterFactory<AdminValidationGatewayFilterFactory.Config> {
 
     private final WebClient.Builder webClientBuilder;
+    private final DiscoveryClient discoveryClient;
 
-    public AdminValidationGatewayFilterFactory(WebClient.Builder webClientBuilder) {
+    public AdminValidationGatewayFilterFactory(WebClient.Builder webClientBuilder, DiscoveryClient discoveryClient) {
         super(Config.class);
         this.webClientBuilder = webClientBuilder;
+        this.discoveryClient = discoveryClient;
     }
 
     @Override
@@ -28,9 +31,15 @@ public class AdminValidationGatewayFilterFactory extends AbstractGatewayFilterFa
                 return exchange.getResponse().setComplete();
             }
 
-            return webClientBuilder.build()
+            String userServiceUrl = this.discoveryClient.getInstances("user-service")
+                    .stream()
+                    .findFirst()
+                    .map(serviceInstance -> "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort())
+                    .orElseThrow(() -> new RuntimeException("user-service not found in service registry"));
+
+            return this.webClientBuilder.build()
                     .post()
-                    .uri("http://localhost:8082/rest/user/admin/validateToken")
+                    .uri(userServiceUrl + "/rest/user/validateToken")
                     .header(HttpHeaders.AUTHORIZATION, token)
                     .retrieve()
                     .bodyToMono(Boolean.class)

@@ -4,11 +4,11 @@ import petkovskimariobachelor.commonservice.shareddtos.shoppingcart.ShoppingCart
 import petkovskimariobachelor.shoppingcartservice.dto.ShoppingCartItemDto;
 
 public interface ShoppingCartService {
-    void addItemToShoppingCart(String header, ShoppingCartItemDto shoppingCartItemDto);
+    void addItemToShoppingCart(String userId, ShoppingCartItemDto shoppingCartItemDto);
 
-    ShoppingCartSharedDto getShoppingCart(String header);
+    ShoppingCartSharedDto getShoppingCart(String userId);
 
     void deleteShoppingCartItems(String shoppingCartId);
 
-    void deleteItemFromShoppingCart(String header, ShoppingCartItemDto shoppingCartItemDto);
+    void deleteItemFromShoppingCart(String userId, ShoppingCartItemDto shoppingCartItemDto);
 }

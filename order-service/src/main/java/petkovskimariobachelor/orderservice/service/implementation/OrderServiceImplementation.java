@@ -8,27 +8,20 @@ import petkovskimariobachelor.commonservice.shareddtos.shoppingcart.ShoppingCart
 import petkovskimariobachelor.orderservice.entity.Order;
 import petkovskimariobachelor.orderservice.infra.OrderEventPublisher;
 import petkovskimariobachelor.orderservice.port.ShoppingCartPort;
-import petkovskimariobachelor.orderservice.port.UserPort;
 import petkovskimariobachelor.orderservice.repository.OrderRepository;
 import petkovskimariobachelor.orderservice.request.OrderDto;
 import petkovskimariobachelor.orderservice.service.interfaces.OrderService;
-
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImplementation implements OrderService {
     private final OrderRepository orderRepository;
     private final ShoppingCartPort shoppingCartPort;
-    private final UserPort userPort;
     private final OrderEventPublisher orderEventPublisher;
 
     @Override
-    public String placeOrder(String token, OrderDto orderDto) {
-        ShoppingCartSharedDto shoppingCartSharedDto = this.shoppingCartPort.getShoppingCart(token);
-        Map<String, String> userDetails = this.userPort.getUserId(token);
-        String userId = userDetails.get("userId");
-        String email = userDetails.get("email");
+    public String placeOrder(String userId, String email, OrderDto orderDto) {
+        ShoppingCartSharedDto shoppingCartSharedDto = this.shoppingCartPort.getShoppingCart(userId);
         Order order = new Order.Builder()
                 .userId(userId)
                 .shoppingCartId(shoppingCartSharedDto.shoppingCartId())

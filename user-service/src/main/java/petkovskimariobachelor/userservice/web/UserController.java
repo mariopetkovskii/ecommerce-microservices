@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import petkovskimariobachelor.commonservice.shareddtos.TokenValidationResponse;
 import petkovskimariobachelor.userservice.dtos.UserRequestDto;
 import petkovskimariobachelor.userservice.response.UserResponseDto;
 import petkovskimariobachelor.userservice.service.interfaces.AuthService;
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/validateToken")
-    private Boolean validateToken(@RequestHeader("Authorization") String token){
+    private TokenValidationResponse validateToken(@RequestHeader("Authorization") String token){
         return this.authService.validateToken(token);
     }
 

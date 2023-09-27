@@ -12,8 +12,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/placeOrder")
-    public void placeOder(@RequestHeader("Authorization") String token, @RequestBody OrderDto orderDto){
-        this.orderService.placeOrder(token, orderDto);
+    public void placeOder(@RequestHeader("X-Id") String userId, @RequestHeader("X-email") String email, @RequestBody OrderDto orderDto){
+        this.orderService.placeOrder(userId, email, orderDto);
     }
 
 }
