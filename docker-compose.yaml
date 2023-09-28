@@ -14,7 +14,7 @@ services:
       - "6379:6379"
 
   product-db:
-    image: "postgres"
+    image: "postgres:latest"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -23,7 +23,7 @@ services:
       - "5432:5432"
 
   users-db:
-    image: "postgres"
+    image: "postgres:latest"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -36,7 +36,7 @@ services:
       -p 5431
 
   shopping-cart-db:
-    image: "postgres"
+    image: "postgres:latest"
     container_name: "shopping-cart-db"
     environment:
       - POSTGRES_USER=postgres
@@ -50,7 +50,7 @@ services:
       -p 5434
 
   order-db:
-    image: "postgres"
+    image: "postgres:latest"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -89,36 +89,124 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - product-service
+      - order-service
+      - shopping-cart-service
+      - user-service
+      - notification-service
+      - api-gateway
+      - service-discovery
 
-#  service-discovery:
-#    image: new-ecommerce-discovery-service
-#    container_name: service-discovery
-#    ports:
-#      - "8761:8761"
-#
-#  api-gateway:
-#    image: new-ecommerce-api-gateway
-#    container_name: api-gateway
-#    ports:
-#      - "8090:8090"
-#    depends_on:
-#      - service-discovery
-#    environment:
-#      - EUREKA_URL=http://service-discovery:8761/eureka
-#      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
-#
-#  user-service:
-#    image: new-ecommerce-user-service
-#    ports:
-#      - "8082:8082"
-#    depends_on:
-#      - users-db
-#      - service-discovery
-#      - zipkin
-#    environment:
-#      - DB_URL=jdbc:postgresql://users-db:5431/users-db
-#      - DB_USER=postgres
-#      - DB_PASS=postgres
-#      - EUREKA_URL=http://service-discovery:8761/eureka
-#      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
-#      - REDIS_URL=redis
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    links:
+      - prometheus:prometheus
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  service-discovery:
+    image: new-ecommerce-discovery-service
+    container_name: service-discovery
+    ports:
+      - "8761:8761"
+
+  api-gateway:
+    image: new-ecommerce-api-gateway
+    container_name: api-gateway
+    ports:
+      - "8090:8090"
+    depends_on:
+      - service-discovery
+    environment:
+      - EUREKA_URL=http://service-discovery:8761/eureka
+      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
+
+  user-service:
+    image: new-ecommerce-user-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - users-db
+      - service-discovery
+      - zipkin
+    environment:
+      - DB_URL=jdbc:postgresql://users-db:5431/users-db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - EUREKA_URL=http://service-discovery:8761/eureka
+      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
+      - REDIS_URL=redis
+
+  product-service:
+    image: new-ecommerce-product-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - product-db
+      - service-discovery
+      - zipkin
+    environment:
+      - DB_URL=jdbc:postgresql://product-db:5432/product-db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - EUREKA_URL=http://service-discovery:8761/eureka
+      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
+      - REDIS_URL=redis
+
+  shopping-cart-service:
+    image: new-ecommerce-shopping-cart-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - shopping-cart-db
+      - service-discovery
+      - kafka
+      - zookeeper
+      - zipkin
+    environment:
+      - DB_URL=jdbc:postgresql://shopping-cart-db:5434/shopping-cart-db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - EUREKA_URL=http://service-discovery:8761/eureka
+      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
+      - KAFKA_URL=http://kafka:9092
+
+  order-service:
+    image: new-ecommerce-order-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - order-db
+      - service-discovery
+      - kafka
+      - zookeeper
+      - zipkin
+    environment:
+      - DB_URL=jdbc:postgresql://order-db:5435/order-db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - EUREKA_URL=http://service-discovery:8761/eureka
+      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
+      - KAFKA_URL=http://kafka:9092
+
+  notification-service:
+    image: new-ecommerce-notification-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - service-discovery
+      - kafka
+      - zookeeper
+      - zipkin
+      - mailhog
+    environment:
+      - EUREKA_URL=http://service-discovery:8761/eureka
+      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
+      - KAFKA_URL=http://kafka:9092
+      - EMAIL_HOST=mailhog

@@ -1,0 +1,18 @@
+FROM maven:3.8-openjdk-17-slim as builder
+
+COPY ../common-service/src /home/common-service/src
+COPY ../common-service/pom.xml /home/common-service
+RUN mvn -f /home/common-service/pom.xml clean install -Dmaven.test.skip=true
+
+COPY ../shopping-cart-service/pom.xml /home/shopping-cart-service/
+COPY ../shopping-cart-service/src /home/shopping-cart-service/src
+RUN mvn -f /home/shopping-cart-service/pom.xml clean package -Dmaven.test.skip=true
+
+
+FROM openjdk:17-jdk-slim
+
+COPY --from=builder /home/shopping-cart-service/target/*.jar shopping-cart-service.jar
+
+ENTRYPOINT ["java", "-jar", "/shopping-cart-service.jar"]
+
+EXPOSE 8083
