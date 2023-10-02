@@ -1,5 +1,8 @@
-name: Login to Docker, build, tag, push and Azure Deploy
-on: [push]
+name: Login to Docker, build, tag, push to docker registry
+on:
+  push:
+    branches:
+      - dev
 
 jobs:
     build:
