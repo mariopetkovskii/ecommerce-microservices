@@ -21,6 +21,78 @@ jobs:
           run: |
             docker tag mariopetkovski/bachelor-ecommerce-product-service mariopetkovski/bachelor-ecommerce-product-service
         
-        - name: Docker push product SERVICE image
+        - name: Docker push product service image
           run: |
             docker push mariopetkovski/bachelor-ecommerce-product-service
+
+        - name: Build api-gateway image
+          run: |
+            docker build -t mariopetkovski/bachelor-ecommerce-api-gateway-service -f ./docker/DockerfileApiGatewayService .
+            
+        - name: Docker api-gateway service tag
+          run: |
+            docker tag mariopetkovski/bachelor-ecommerce-api-gateway-service mariopetkovski/bachelor-ecommerce-api-gateway-service
+        
+        - name: Docker push api-gateway service image
+          run: |
+            docker push mariopetkovski/bachelor-ecommerce-api-gateway-service
+
+        - name: Build discovery image
+          run: |
+            docker build -t mariopetkovski/bachelor-ecommerce-discovery-service -f ./docker/DockerfileDiscoveryService .
+            
+        - name: Docker discovery service tag
+          run: |
+            docker tag mariopetkovski/bachelor-ecommerce-discovery-service mariopetkovski/bachelor-ecommerce-discovery-service
+        
+        - name: Docker push discovery service image
+          run: |
+            docker push mariopetkovski/bachelor-ecommerce-discovery-service
+
+        - name: Build notification image
+          run: |
+            docker build -t mariopetkovski/bachelor-ecommerce-notification-service -f ./docker/DockerfileNotificationService .
+            
+        - name: Docker notification service tag
+          run: |
+            docker tag mariopetkovski/bachelor-ecommerce-notification-service mariopetkovski/bachelor-ecommerce-notification-service
+        
+        - name: Docker push notification service image
+          run: |
+            docker push mariopetkovski/bachelor-ecommerce-notification-service
+
+        - name: Build order image
+          run: |
+            docker build -t mariopetkovski/bachelor-ecommerce-order-service -f ./docker/DockerfileOrderService .
+            
+        - name: Docker order service tag
+          run: |
+            docker tag mariopetkovski/bachelor-ecommerce-order-service mariopetkovski/bachelor-ecommerce-order-service
+        
+        - name: Docker push order service image
+          run: |
+            docker push mariopetkovski/bachelor-ecommerce-order-service
+
+        - name: Build user image
+          run: |
+            docker build -t mariopetkovski/bachelor-ecommerce-user-service -f ./docker/DockerfileUserService .
+            
+        - name: Docker user service tag
+          run: |
+            docker tag mariopetkovski/bachelor-ecommerce-user-service mariopetkovski/bachelor-ecommerce-user-service
+        
+        - name: Docker push user service image
+          run: |
+            docker push mariopetkovski/bachelor-ecommerce-user-service
+
+        - name: Build shopping cart image
+          run: |
+            docker build -t mariopetkovski/bachelor-ecommerce-shopping-cart-service -f ./docker/DockerfileShoppingCartService .
+            
+        - name: Docker shopping-cart service tag
+          run: |
+            docker tag mariopetkovski/bachelor-ecommerce-shopping-cart-service mariopetkovski/bachelor-ecommerce-shopping-cart-service
+        
+        - name: Docker push shopping-cart service image
+          run: |
+            docker push mariopetkovski/bachelor-ecommerce-shopping-cart-service
