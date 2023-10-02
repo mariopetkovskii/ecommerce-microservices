@@ -1,0 +1,26 @@
+name: Login to Docker, build, tag, push and Azure Deploy
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+    
+        - name: Login to DockerHub
+          uses: docker/login-action@v1
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+        - name: Build product image
+          run: |
+            docker build -t mariopetkovski/bachelor-ecommerce-product-service -f ./docker/DockerfileProductService .
+            
+        - name: Docker product service tag
+          run: |
+            docker tag mariopetkovski/bachelor-ecommerce-product-service mariopetkovski/bachelor-ecommerce-product-service
+        
+        - name: Docker push product SERVICE image
+          run: |
+            docker push mariopetkovski/bachelor-ecommerce-product-service
