@@ -1,0 +1,12 @@
+postgres:
+  image: "postgres"
+  user: "postgres"
+  database: "order-db"
+  port: 5435
+
+configmap:
+  postgresUser: "postgres"
+  postgresDB: "order-db"
+
+secrets:
+  postgresPassword: "cG9zdGdyZXM="

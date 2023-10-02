@@ -1,0 +1,12 @@
+postgres:
+  image: "postgres"
+  user: "postgres"
+  database: "shopping-cart-db"
+  port: 5434
+
+configmap:
+  postgresUser: "postgres"
+  postgresDB: "shopping-cart-db"
+
+secrets:
+  postgresPassword: "cG9zdGdyZXM="

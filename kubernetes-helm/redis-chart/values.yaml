@@ -1,0 +1,7 @@
+replicaCount: 1
+
+redis:
+  image: "redis"
+  tag: "latest"
+  database: "redis"
+  port: 6379

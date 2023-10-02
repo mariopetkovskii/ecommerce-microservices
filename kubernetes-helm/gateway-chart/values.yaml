@@ -1,0 +1,4 @@
+apigateway:
+  image: mariopetkovski/bachelor-ecommerce-api-gateway-service
+  containerName: api-gateway
+  port: 8090

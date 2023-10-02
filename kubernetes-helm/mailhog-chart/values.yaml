@@ -1,0 +1,30 @@
+replicaCount: 1
+
+image:
+  repository: mailhog/mailhog
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+name: mailhog
+
+service:
+  type: LoadBalancer
+  port: 80
+  httpPort: 8025
+  smtpPort: 1025
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

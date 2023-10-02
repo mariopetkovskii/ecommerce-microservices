@@ -1,0 +1,12 @@
+postgres:
+  image: "postgres"
+  user: "postgres"
+  database: "product-db"
+  port: 5432
+
+configmap:
+  postgresUser: "postgres"
+  postgresDB: "product-db"
+
+secrets:
+  postgresPassword: "cG9zdGdyZXM="
