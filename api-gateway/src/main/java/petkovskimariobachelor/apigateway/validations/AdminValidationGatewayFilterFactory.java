@@ -39,7 +39,7 @@ public class AdminValidationGatewayFilterFactory extends AbstractGatewayFilterFa
 
             return this.webClientBuilder.build()
                     .post()
-                    .uri(userServiceUrl + "/rest/user/validateToken")
+                    .uri(userServiceUrl + "/rest/user/admin/validateToken")
                     .header(HttpHeaders.AUTHORIZATION, token)
                     .retrieve()
                     .bodyToMono(Boolean.class)

@@ -1,0 +1,11 @@
+backend:
+  name: notificationbackend
+  serviceName: notification-service
+  deploymentName: notificationdeployment
+  image: mariopetkovski/bachelor-ecommerce-notification-service
+  tag: latest
+  restartPolicy: Always
+  port: 8086
+  service:
+    name: notification-service
+    port: 8086
