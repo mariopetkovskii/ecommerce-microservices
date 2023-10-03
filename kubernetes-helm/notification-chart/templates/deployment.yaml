@@ -26,7 +26,9 @@ spec:
             - name: KAFKA_URL
               value: broker:9092
             - name: ZIPKIN_URL
-              value: http://zipkin:9411
+              value: http://zipkin:9411/api/v2/spans
             - name: EUREKA_URL
               value: http://servicediscoveryservice:8761/eureka
+            - name: MAILHOG
+              value: mailhog
       restartPolicy: {{ .Values.backend.restartPolicy }}
