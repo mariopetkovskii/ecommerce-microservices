@@ -14,9 +14,9 @@ import java.util.Properties;
 
 @Service
 public class EmailService {
-    private static final String host = "localhost";
+    private static final String host = "mailhog";
     private final static int port = 1025;
-    private final static String sender = "e-commerce@commerce.com";
+    private final static String sender = "noreply@commerce.com";
 
     public static void sendOrderEmail(String to, List<ProductResponseSharedDto> productListDtoList, Double totalPrice, String deliveryAddress){
         Properties properties = new Properties();
