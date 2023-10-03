@@ -1,0 +1,11 @@
+backend:
+  name: servicediscoverybackend
+  serviceName: servicediscoveryservice
+  deploymentName: servicediscoverydeployment
+  image: mariopetkovski/bachelor-ecommerce-discovery-service
+  tag: latest
+  restartPolicy: Always
+  port: 8761
+  service:
+    name: servicediscoveryservice
+    port: 8761

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.apigateway.containerName }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ .Values.apigateway.containerName }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.apigateway.port }}
+      targetPort: {{ .Values.apigateway.port }}

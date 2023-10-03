@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.apigateway.containerName }}
+  labels:
+    app: {{ .Values.apigateway.containerName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.apigateway.containerName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.apigateway.containerName }}
+    spec:
+      containers:
+        - name: {{ .Values.apigateway.containerName }}
+          image: {{ .Values.apigateway.image }}
+          ports:
+            - containerPort: {{ .Values.apigateway.port }}
+          env:
+            - name: ZIPKIN_URL
+              value: http://zipkin:9411
+            - name: EUREKA_URL
+              value: http://servicediscoveryservice:8761/eureka
+            - name: REDIS_URL
+              value: redis
