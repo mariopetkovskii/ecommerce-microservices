@@ -1,0 +1,11 @@
+backend:
+  name: orderbackend
+  serviceName: order-service
+  deploymentName: orderdeployment
+  image: mariopetkovski/bachelor-ecommerce-order-service
+  tag: latest
+  restartPolicy: Always
+  port: 8084
+  service:
+    name: order-service
+    port: 8084

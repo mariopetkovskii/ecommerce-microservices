@@ -1,0 +1,11 @@
+backend:
+  name: shoppingcartbackend
+  serviceName: shopping-cart-service
+  deploymentName: shoppingcartdeployment
+  image: mariopetkovski/bachelor-ecommerce-shopping-cart-service
+  tag: latest
+  restartPolicy: Always
+  port: 8083
+  service:
+    name: shopping-cart-service
+    port: 8083
