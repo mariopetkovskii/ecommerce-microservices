@@ -1,0 +1,11 @@
+backend:
+  name: usersbackend
+  serviceName: user-service
+  deploymentName: usersdeployment
+  image: mariopetkovski/bachelor-ecommerce-user-service
+  tag: latest
+  restartPolicy: Always
+  port: 8082
+  service:
+    name: user-service
+    port: 8082

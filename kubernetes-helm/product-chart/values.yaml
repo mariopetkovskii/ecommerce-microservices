@@ -1,0 +1,11 @@
+backend:
+  name: productbackend
+  serviceName: product-service
+  deploymentName: productdeployment
+  image: mariopetkovski/bachelor-ecommerce-product-service
+  tag: latest
+  restartPolicy: Always
+  port: 8081
+  service:
+    name: product-service
+    port: 8081
