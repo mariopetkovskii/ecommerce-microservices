@@ -18,7 +18,8 @@ public class EmailService {
     private final static int port = 1025;
     private final static String sender = "noreply@commerce.com";
 
-    public static void sendOrderEmail(String to, List<ProductResponseSharedDto> productListDtoList, Double totalPrice, String deliveryAddress){
+    public static void sendOrderEmail(String to, List<ProductResponseSharedDto> productListDtoList,
+                                      Double totalPrice, String deliveryAddress){
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);

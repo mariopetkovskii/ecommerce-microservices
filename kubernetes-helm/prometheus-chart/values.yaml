@@ -1,0 +1,42 @@
+prometheus:
+  image:
+    repository: prom/prometheus
+    tag: v2.37.1
+  service:
+    port: 9090
+  prometheusConfig: |-
+    global:
+      scrape_interval: 10s
+      evaluation_interval: 10s
+
+    scrape_configs:
+      - job_name: 'product_service'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: ['product-service:8081']
+            labels:
+              application: 'Product Service Application'
+      - job_name: 'order_service'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: ['order-service:8084']
+            labels:
+              application: 'Order Service Application'
+      - job_name: 'shopping_cart_service'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: ['shopping-cart-service:8083']
+            labels:
+              application: 'Shopping Cart Service Application'
+      - job_name: 'notification_service'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: ['notification-service:8086']
+            labels:
+              application: 'Notification Service Application'
+      - job_name: 'user_service'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: ['user-service:8082']
+            labels:
+              application: 'User Service Application'

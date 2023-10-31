@@ -1,0 +1,26 @@
+grafana:
+  image:
+    repository: grafana/grafana
+    tag: latest
+  containerName: grafana
+  restartPolicy: unless-stopped
+  ports:
+    - name: http
+      containerPort: 3000
+      hostPort: 3000
+  links:
+    - name: prometheus
+      alias: prometheus
+  env:
+    - name: GF_SECURITY_ADMIN_USER
+      value: admin
+    - name: GF_SECURITY_ADMIN_PASSWORD
+      value: admin
+
+service:
+  name: grafana
+  type: ClusterIP
+  port:
+    name: http
+    port: 3000
+    targetPort: 3000

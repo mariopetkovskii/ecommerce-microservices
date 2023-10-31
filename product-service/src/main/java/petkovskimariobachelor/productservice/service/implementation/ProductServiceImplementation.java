@@ -40,6 +40,9 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public void create(ProductRequestDto productRequestDto) {
+        if(this.productRepository.findByCode(productRequestDto.getCode()) != null){
+            throw new RuntimeException("Product exists");
+        }
         Product product = new Product.Builder()
                 .code(productRequestDto.getCode())
                 .name(productRequestDto.getName())
@@ -58,7 +61,9 @@ public class ProductServiceImplementation implements ProductService {
     @Cacheable(value = "productPageCache", key = "#productFilterRequestDto")
     @Override
     public PageResponse<ProductSharedDto> findProductWithPaging(ProductFilterRequestDto productFilterRequestDto) {
-        var sort = productFilterRequestDto.sortProperty == null ? Sort.unsorted() : Sort.by(productFilterRequestDto.sortDirection, productFilterRequestDto.sortProperty);
+        var sort = productFilterRequestDto.sortProperty == null ?
+                Sort.unsorted() :
+                Sort.by(productFilterRequestDto.sortDirection, productFilterRequestDto.sortProperty);
         Pageable pageable =
                 PageRequest.of(productFilterRequestDto.pageNumber, productFilterRequestDto.pageSize, sort);
 
@@ -78,6 +83,6 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     public void evictProductCache() {
-        Objects.requireNonNull(this.cacheManager.getCache("productPageCache")).clear();;
+        Objects.requireNonNull(this.cacheManager.getCache("productPageCache")).clear();
     }
 }
