@@ -63,7 +63,6 @@ public class AuthServiceImplementation implements AuthService {
     @Override
     public TokenValidationResponse validateToken(String token) {
         try{
-            Jwt decodedToken = this.jwtDecoder.decode(token.substring(7));
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
             User user = this.userRepository.findByEmail(email);

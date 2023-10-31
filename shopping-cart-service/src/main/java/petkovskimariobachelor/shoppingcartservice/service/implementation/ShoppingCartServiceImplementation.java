@@ -25,7 +25,6 @@ public class ShoppingCartServiceImplementation implements ShoppingCartService {
     private final ShoppingCartTotalMapper shoppingCartTotalMapper;
     @Override
     public void addItemToShoppingCart(String userId, ShoppingCartItemDto shoppingCartItemDto) {
-//        Map<String, String> userDetails = this.userPort.getUserId(header);
         ShoppingCart shoppingCart = this.findOrCreateShoppingCart(userId);
         ProductSharedDto product = this.productPort.getProduct(shoppingCartItemDto.getProductCode());
         ProductItem productItem = new ProductItem(shoppingCartItemDto.getProductCode(), shoppingCartItemDto.getQuantity(), product.price());
@@ -34,7 +33,6 @@ public class ShoppingCartServiceImplementation implements ShoppingCartService {
         }else{
             shoppingCart.addItemToShoppingCart(productItem);
         }
-
         this.shoppingCartRepository.saveAndFlush(shoppingCart);
     }
 

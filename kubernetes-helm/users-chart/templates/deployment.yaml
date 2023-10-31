@@ -6,7 +6,6 @@ metadata:
     app: {{ .Values.backend.name }}
     tier: {{ .Values.backend.name }}
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.backend.name }}
@@ -22,6 +21,11 @@ spec:
           image: {{ .Values.backend.image }}:{{ .Values.backend.tag }}
           ports:
               - containerPort: {{ .Values.backend.port }}
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411/api/v2/spans

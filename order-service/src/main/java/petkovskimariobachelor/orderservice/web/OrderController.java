@@ -16,11 +16,16 @@ public class OrderController {
 
     @PostMapping("/placeOrder")
     @CircuitBreaker(name = "order", fallbackMethod = "fallbackMethod")
-    public CompletableFuture<String> placeOder(@RequestHeader("X-Id") String userId, @RequestHeader("X-email") String email, @RequestBody OrderDto orderDto){
+    public CompletableFuture<String> placeOder(@RequestHeader("X-Id") String userId,
+                                               @RequestHeader("X-email") String email,
+                                               @RequestBody OrderDto orderDto){
         return CompletableFuture.supplyAsync(() -> this.orderService.placeOrder(userId, email, orderDto));
     }
 
-    public CompletableFuture<String> fallbackMethod(String userId, String email, OrderDto orderDto, RuntimeException runtimeException){
+    public CompletableFuture<String> fallbackMethod(String userId,
+                                                    String email,
+                                                    OrderDto orderDto,
+                                                    RuntimeException runtimeException){
         return CompletableFuture.supplyAsync(() -> "Something went wrong, try again later!");
     }
 }

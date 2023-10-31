@@ -39,7 +39,7 @@ public class UserServiceImplementation implements UserService {
                 .firstName(userRequestDto.getFirstName())
                 .lastName(userRequestDto.getLastName())
                 .email(userRequestDto.getEmail())
-                .password(passwordEncoder.encode(userRequestDto.getPassword()))
+                .password(this.passwordEncoder.encode(userRequestDto.getPassword()))
                 .isEnabled(true)
                 .role(Role.ROLE_USER)
                 .build();

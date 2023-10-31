@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ .Values.backend.serviceName }}
 spec:
-  type: LoadBalancer
+#  type: LoadBalancer
   selector:
     app: {{ .Values.backend.name }}
     tier: {{ .Values.backend.name }}
