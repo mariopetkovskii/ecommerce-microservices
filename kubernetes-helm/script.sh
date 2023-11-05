@@ -7,6 +7,7 @@ helm upgrade --install gateway gateway-chart
 helm upgrade --install product-postgres product-postgres-chart
 helm upgrade --install product product-chart
 helm upgrade --install prometheus prometheus-chart
+helm upgrade --install grafana grafana-chart
 helm upgrade --install users-postgres users-postgres-chart
 helm upgrade --install users users-chart
 helm upgrade --install shopping-cart-postgres shopping-cart-postgres-chart

@@ -40,3 +40,9 @@ prometheus:
           - targets: ['user-service:8082']
             labels:
               application: 'User Service Application'
+      - job_name: 'service-discovery'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: ['servicediscoveryservice:8761']
+            labels:
+              application: 'Service discovery'
