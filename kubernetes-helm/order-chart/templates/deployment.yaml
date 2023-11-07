@@ -6,7 +6,7 @@ metadata:
     app: {{ .Values.backend.name }}
     tier: {{ .Values.backend.name }}
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: {{ .Values.backend.name }}
