@@ -62,14 +62,14 @@ public class ShoppingCart extends BaseEntity<ShoppingCartId> {
         productItem.setQuantity(productItem.getQuantity() + amount);
     }
 
-    public boolean checkIfItemExists(ShoppingCart shoppingCart, String code){
-        return shoppingCart.getShoppingCart()
+    public boolean checkIfItemExists(String code){
+        return this.getShoppingCart()
                 .stream()
                 .anyMatch(item -> item.getProductCode().equals(code));
     }
 
-    public ProductItem findProductItem(ShoppingCart shoppingCart, String productCode){
-        return shoppingCart.getShoppingCart()
+    public ProductItem findProductItem(String productCode){
+        return this.getShoppingCart()
                 .stream().filter(item -> item.getProductCode().equals(productCode))
                 .findFirst().get();
     }
