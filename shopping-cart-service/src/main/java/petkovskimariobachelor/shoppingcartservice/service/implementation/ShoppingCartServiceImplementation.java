@@ -8,14 +8,12 @@ import petkovskimariobachelor.shoppingcartservice.dto.ShoppingCartItemDto;
 import petkovskimariobachelor.shoppingcartservice.entity.ProductItem;
 import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCart;
 import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCartId;
+import petkovskimariobachelor.shoppingcartservice.helpers.ShoppingCartFunctions;
 import petkovskimariobachelor.shoppingcartservice.mappers.ShoppingCartTotalMapper;
 import petkovskimariobachelor.shoppingcartservice.port.ProductPort;
 import petkovskimariobachelor.shoppingcartservice.repository.ProductItemRepository;
 import petkovskimariobachelor.shoppingcartservice.repository.ShoppingCartRepository;
 import petkovskimariobachelor.shoppingcartservice.service.interfaces.ShoppingCartService;
-
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +26,8 @@ public class ShoppingCartServiceImplementation implements ShoppingCartService {
     public void addItemToShoppingCart(String userId, ShoppingCartItemDto shoppingCartItemDto) {
         ShoppingCart shoppingCart = this.findOrCreateShoppingCart(userId);
         ProductSharedDto product = this.productPort.getProduct(shoppingCartItemDto.getProductCode());
-        if(shoppingCart.checkIfItemExists(shoppingCart, shoppingCartItemDto.getProductCode())){
-            ProductItem productItem = shoppingCart.findProductItem(shoppingCart, shoppingCartItemDto.getProductCode());
+        if(shoppingCart.checkIfItemExists(shoppingCartItemDto.getProductCode())){
+            ProductItem productItem = shoppingCart.findProductItem(shoppingCartItemDto.getProductCode());
             shoppingCart.changeQuantityOfItem(productItem, shoppingCartItemDto.getQuantity());
         }else{
             shoppingCart.addItemToShoppingCart(new ProductItem(shoppingCartItemDto.getProductCode(), shoppingCartItemDto.getQuantity(), product.price()));
