@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import petkovskimariobachelor.commonservice.base.BaseEntity;
 import petkovskimariobachelor.commonservice.base.IdClass;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "product_item")
 @Getter
+@Setter
 public class ProductItem extends BaseEntity<ProductItemId> {
     private String productCode;
     private Integer quantity;
@@ -27,17 +29,11 @@ public class ProductItem extends BaseEntity<ProductItemId> {
         super(IdClass.randomId(ProductItemId.class));
     }
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        ProductItem otherItem = (ProductItem) obj;
-        return Objects.equals(productCode, otherItem.productCode);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductItem that = (ProductItem) o;
+        return Objects.equals(productCode, that.productCode);
     }
 
     @Override

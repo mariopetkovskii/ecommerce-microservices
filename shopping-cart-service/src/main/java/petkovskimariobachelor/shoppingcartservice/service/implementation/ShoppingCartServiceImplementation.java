@@ -15,6 +15,7 @@ import petkovskimariobachelor.shoppingcartservice.repository.ShoppingCartReposit
 import petkovskimariobachelor.shoppingcartservice.service.interfaces.ShoppingCartService;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +28,11 @@ public class ShoppingCartServiceImplementation implements ShoppingCartService {
     public void addItemToShoppingCart(String userId, ShoppingCartItemDto shoppingCartItemDto) {
         ShoppingCart shoppingCart = this.findOrCreateShoppingCart(userId);
         ProductSharedDto product = this.productPort.getProduct(shoppingCartItemDto.getProductCode());
-        ProductItem productItem = new ProductItem(shoppingCartItemDto.getProductCode(), shoppingCartItemDto.getQuantity(), product.price());
-        if(shoppingCart.getShoppingCart().contains(productItem)){
+        if(shoppingCart.checkIfItemExists(shoppingCart, shoppingCartItemDto.getProductCode())){
+            ProductItem productItem = shoppingCart.findProductItem(shoppingCart, shoppingCartItemDto.getProductCode());
             shoppingCart.changeQuantityOfItem(productItem, shoppingCartItemDto.getQuantity());
         }else{
-            shoppingCart.addItemToShoppingCart(productItem);
+            shoppingCart.addItemToShoppingCart(new ProductItem(shoppingCartItemDto.getProductCode(), shoppingCartItemDto.getQuantity(), product.price()));
         }
         this.shoppingCartRepository.saveAndFlush(shoppingCart);
     }

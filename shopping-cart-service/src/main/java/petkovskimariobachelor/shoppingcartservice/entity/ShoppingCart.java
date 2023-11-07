@@ -5,6 +5,7 @@ import lombok.Getter;
 import petkovskimariobachelor.commonservice.base.BaseEntity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -39,12 +40,38 @@ public class ShoppingCart extends BaseEntity<ShoppingCartId> {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ShoppingCart that = (ShoppingCart) o;
+        return Objects.equals(userId, that.userId) && Objects.equals(shoppingCart, that.shoppingCart);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), userId, shoppingCart);
+    }
+
     public void addItemToShoppingCart(ProductItem productItem){
         this.shoppingCart.add(productItem);
     }
 
     public void changeQuantityOfItem(ProductItem productItem, Integer amount){
-        productItem.addQuantity(amount);
+        productItem.setQuantity(productItem.getQuantity() + amount);
+    }
+
+    public boolean checkIfItemExists(ShoppingCart shoppingCart, String code){
+        return shoppingCart.getShoppingCart()
+                .stream()
+                .anyMatch(item -> item.getProductCode().equals(code));
+    }
+
+    public ProductItem findProductItem(ShoppingCart shoppingCart, String productCode){
+        return shoppingCart.getShoppingCart()
+                .stream().filter(item -> item.getProductCode().equals(productCode))
+                .findFirst().get();
     }
 
 }

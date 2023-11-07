@@ -16,11 +16,6 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/list")
-    private List<ProductSharedDto> productRecordList(){
-        return this.productService.findAll();
-    }
-
     @PostMapping("/admin/create")
     private void createProduct(@RequestBody ProductRequestDto productRequestDto){
         this.productService.create(productRequestDto);
@@ -30,7 +25,7 @@ public class ProductController {
     private ProductSharedDto getProduct(@RequestBody ProductRequestDto productRequestDto){
         return this.productService.getProduct(productRequestDto);
     }
-    @GetMapping("/test")
+    @GetMapping("/list")
     private PageResponse<ProductSharedDto> findAllWithPagination(ProductFilterRequestDto request){
         return this.productService.findProductWithPaging(request);
     }
