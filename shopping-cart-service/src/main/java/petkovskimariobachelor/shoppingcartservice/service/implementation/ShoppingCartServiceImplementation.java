@@ -8,7 +8,6 @@ import petkovskimariobachelor.shoppingcartservice.dto.ShoppingCartItemDto;
 import petkovskimariobachelor.shoppingcartservice.entity.ProductItem;
 import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCart;
 import petkovskimariobachelor.shoppingcartservice.entity.ShoppingCartId;
-import petkovskimariobachelor.shoppingcartservice.helpers.ShoppingCartFunctions;
 import petkovskimariobachelor.shoppingcartservice.mappers.ShoppingCartTotalMapper;
 import petkovskimariobachelor.shoppingcartservice.port.ProductPort;
 import petkovskimariobachelor.shoppingcartservice.repository.ProductItemRepository;
