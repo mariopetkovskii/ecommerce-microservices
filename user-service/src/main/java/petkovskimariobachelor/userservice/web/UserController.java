@@ -45,12 +45,12 @@ public class UserController {
     }
 
     @PostMapping("/validateToken")
-    private TokenValidationResponse validateToken(@RequestHeader("Authorization") String token){
-        return this.authService.validateToken(token);
+    private TokenValidationResponse validateToken(){
+        return this.authService.validateToken();
     }
 
     @PostMapping("/admin/validateToken")
-    private Boolean validateTokenAdmin(@RequestHeader("Authorization") String token){
-        return this.authService.validateAdminToken(token);
+    private Boolean validateTokenAdmin(){
+        return this.authService.validateAdminToken();
     }
 }

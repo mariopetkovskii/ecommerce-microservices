@@ -61,19 +61,19 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public TokenValidationResponse validateToken(String token) {
+    public TokenValidationResponse validateToken() {
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
             User user = this.userRepository.findByEmail(email);
             return new TokenValidationResponse(user.getEmail(), user.getId().getId(), true);
         }catch (Exception exception){
-            return new TokenValidationResponse("","", true);
+            return new TokenValidationResponse("","", false);
         }
     }
 
     @Override
-    public Boolean validateAdminToken(String token) {
+    public Boolean validateAdminToken() {
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();

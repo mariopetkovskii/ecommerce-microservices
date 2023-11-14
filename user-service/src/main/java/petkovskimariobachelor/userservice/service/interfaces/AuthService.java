@@ -9,6 +9,6 @@ import java.util.Map;
 public interface AuthService {
     String generateToken(Authentication authentication);
     ResponseEntity<Map<String, String>> getUserId();
-    TokenValidationResponse validateToken(String token);
-    Boolean validateAdminToken(String token);
+    TokenValidationResponse validateToken();
+    Boolean validateAdminToken();
 }
